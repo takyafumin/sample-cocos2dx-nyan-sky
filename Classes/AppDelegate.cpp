@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "GameLayer.h"
 
 USING_NS_CC;
 
@@ -7,12 +7,13 @@ AppDelegate::AppDelegate() {
 
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
-    // initialize director
+
+	// initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
@@ -20,16 +21,19 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
-    // turn on display FPS
+    // FPSを表示
     director->setDisplayStats(true);
 
-    // set FPS. the default value is 1.0/60 if you don't call this
+    // FPSを設定
     director->setAnimationInterval(1.0 / 60);
 
-    // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+    // マルチレゾリューション対応：画面幅
+    glview->setDesignResolutionSize(640, 1136, ResolutionPolicy::FIXED_WIDTH);
 
-    // run
+    // Gameシーンを生成
+    auto scene = GameLayer::createScene();
+
+    // 実行
     director->runWithScene(scene);
 
     return true;
