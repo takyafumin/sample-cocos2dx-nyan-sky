@@ -7,6 +7,8 @@
 
 #include "cocos2d.h"
 #include "GameLayer.h"
+#include "Player.h"
+
 
 // 背景画像
 #define PNG_BACKGROUND "Background.png"
@@ -41,6 +43,13 @@ bool GameLayer::init()
 	// 背景初期化
 	initBackground();
 
+	// プレイヤーを表示
+	initPlayer();
+
+	// タップイベントの初期化
+	initTouchEvent();
+
+
 	return true;
 }
 
@@ -70,7 +79,68 @@ void GameLayer::initBackground()
 	auto destPosition = Vec2(winSize.width / 2, winSize.height - background->getContentSize().height);
 	auto move = MoveTo::create(120, destPosition);
 
+	// アクション実行
 	background->runAction(move);
-
-	return;
 }
+
+/**
+ * プレイヤー初期化処理
+ */
+void GameLayer::initPlayer()
+{
+	// 画面サイズ取得
+	Size winSize = Director::getInstance()->getWinSize();
+
+	// プレイヤーの生成
+	_player = Player::create();
+
+	// 位置設定
+	_player->setPosition(winSize.width * 0.5, winSize.height * 0.2);
+
+	// 画面へ追加
+	this->addChild(_player, Z_Player, Tag_Player);
+}
+
+
+/**
+ * タップイベント初期化処理
+ */
+void GameLayer::initTouchEvent()
+{
+
+	// シングルタップイベントの取得設定
+	auto touchListener = EventListenerTouchOneByOne::create();
+
+	touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+	touchListener->onTouchMoved = CC_CALLBACK_2(GameLayer::onTouchMoved, this);
+	touchListener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
+	touchListener->onTouchCancelled = CC_CALLBACK_2(GameLayer::onTouchCancelled, this);
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+}
+
+
+
+
+#define mark - タップイベント
+
+bool GameLayer::onTouchBegan(Touch* touch, Event* event)
+{
+	return true;
+}
+
+void GameLayer::onTouchMoved(Touch* touch, Event* event)
+{
+	// スワイプした移動距離分、プレイヤーを移動する
+	_player->setPosition(_player->getPosition() + touch->getDelta());
+}
+
+void GameLayer::onTouchEnded(Touch* touch, Event* event)
+{
+}
+
+void GameLayer::onTouchCancelled(Touch* touch, Event* event)
+{
+	onTouchEnded(touch, event);
+}
+
