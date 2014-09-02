@@ -55,8 +55,22 @@ void GameLayer::initBackground()
 
 	// 背景スプライト生成
 	auto background = Sprite::create(PNG_BACKGROUND);
-	background->setPosition(winSize / 2);
+
+	// 背景アンカーポイント設定
+	background->setAnchorPoint(Vec2(0.5, 0));
+
+	// 背景の位置設定
+	background->setPosition(Vec2(winSize.width / 2, 0));
+
+	// 背景を追加
 	this->addChild(background, Z_Bg, Tag_Bg);
+
+
+	// アニメーション生成
+	auto destPosition = Vec2(winSize.width / 2, winSize.height - background->getContentSize().height);
+	auto move = MoveTo::create(120, destPosition);
+
+	background->runAction(move);
 
 	return;
 }
