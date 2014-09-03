@@ -8,6 +8,7 @@
 #include "cocos2d.h"
 #include "GameLayer.h"
 #include "Player.h"
+#include "Enemy.h"
 
 
 // 背景画像
@@ -49,6 +50,11 @@ bool GameLayer::init()
 	// タップイベントの初期化
 	initTouchEvent();
 
+	// 敵設定の初期化
+	initEnemyConfigs();
+
+	// フレーム処理を設定
+	scheduleUpdate();
 
 	return true;
 }
@@ -143,4 +149,65 @@ void GameLayer::onTouchCancelled(Touch* touch, Event* event)
 {
 	onTouchEnded(touch, event);
 }
+
+/**
+ * 敵の初期化処理
+ */
+void GameLayer::initEnemyConfigs()
+{
+	_enemyConfigs =
+	{
+			{1, 2},
+			{1, 3},
+			{1, 4},
+			{1, 5},
+			{1, 6},
+
+			{2, 8},
+			{2, 9},
+			{2, 10},
+			{2, 11},
+			{2, 12},
+	};
+}
+
+
+/**
+ * フレーム処理
+ */
+void GameLayer::update(float dt)
+{
+	// トータル時間を加算
+	_time += dt;
+
+	// 敵の表示設定
+	if (_enemyConfigs.size() == 0 )
+		return;
+
+	if (_enemyConfigs[0].appearanceTime <= _time)
+	{
+		// まだ出現していない敵が存在する
+		showEnemy();
+	}
+}
+
+
+/**
+ * 敵の表示処理
+ */
+void GameLayer::showEnemy()
+{
+	// 敵を生成
+	auto type = static_cast<Enemy::EnemyType>(_enemyConfigs[0].enemyType);
+	auto enemy = Enemy::create(type);
+
+	// シーンへ追加
+	this->addChild(enemy, Z_Enemy, Tag_Enemy);
+
+
+	// 配列から設定済みの敵を削除
+	_enemyConfigs.erase(_enemyConfigs.begin());
+}
+
+
 

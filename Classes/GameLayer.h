@@ -19,7 +19,8 @@ protected:
 	enum ZOrder
 	{
 		Z_Bg = 0,
-		Z_Player = 1,
+		Z_Enemy =1,
+		Z_Player = 2,
 	};
 
 	// Tag定義
@@ -27,10 +28,25 @@ protected:
 	{
 		Tag_Bg = 1,
 		Tag_Player = 2,
+		Tag_Enemy = 3,
+	};
+
+	// 敵の設定
+	struct EnemyConfig
+	{
+		int enemyType;
+		float appearanceTime;
 	};
 
 	// プレイヤー
 	Player* _player;
+
+	// ゲーム時間
+	float _time;
+
+	// 敵の設定
+	std::vector<EnemyConfig> _enemyConfigs;
+
 
 
 	// 背景初期化処理
@@ -42,6 +58,12 @@ protected:
 	// タップイベントの初期化
 	void initTouchEvent();
 
+	// 敵設定の初期化
+	void initEnemyConfigs();
+
+	// 敵の表示
+	void showEnemy();
+
 
 public:
 	// CreateScene
@@ -50,8 +72,11 @@ public:
 	// 初期化処理
 	virtual bool init();
 
-	// Create
+	// Createマクロ
 	CREATE_FUNC(GameLayer);
+
+	// フレーム処理
+	virtual void update(float dt);
 
 	// タップイベント
 	virtual bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
