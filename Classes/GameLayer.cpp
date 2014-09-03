@@ -9,10 +9,14 @@
 #include "GameLayer.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Bullet.h"
 
 
 // 背景画像
 #define PNG_BACKGROUND "Background.png"
+
+// 弾の発射感覚
+#define BULLET_INTERVAL 0.5f
 
 
 USING_NS_CC;
@@ -189,6 +193,12 @@ void GameLayer::update(float dt)
 		// まだ出現していない敵が存在する
 		showEnemy();
 	}
+
+	// 弾の表示
+	if (_lastBulletTime + BULLET_INTERVAL < _time)
+	{
+		showBullet();
+	}
 }
 
 
@@ -210,4 +220,17 @@ void GameLayer::showEnemy()
 }
 
 
+/**
+ * 弾の表示処理
+ */
+void GameLayer::showBullet()
+{
+	// 弾を生成
+	auto bullet = Bullet::create();
+	bullet->setPosition(_player->getPosition());
 
+	this->addChild(bullet, Z_Bullet, Tag_Bullet);
+
+	// 弾の発射時間を保持
+	_lastBulletTime = _time;
+}

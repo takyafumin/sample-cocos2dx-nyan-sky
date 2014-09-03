@@ -19,8 +19,9 @@ protected:
 	enum ZOrder
 	{
 		Z_Bg = 0,
-		Z_Enemy =1,
-		Z_Player = 2,
+		Z_Bullet,
+		Z_Enemy,
+		Z_Player,
 	};
 
 	// Tag定義
@@ -29,6 +30,7 @@ protected:
 		Tag_Bg = 1,
 		Tag_Player = 2,
 		Tag_Enemy = 3,
+		Tag_Bullet = 4,
 	};
 
 	// 敵の設定
@@ -47,6 +49,8 @@ protected:
 	// 敵の設定
 	std::vector<EnemyConfig> _enemyConfigs;
 
+	// 弾を発射した時間
+	float _lastBulletTime;
 
 
 	// 背景初期化処理
@@ -63,6 +67,9 @@ protected:
 
 	// 敵の表示
 	void showEnemy();
+
+	// 弾の表示
+	void showBullet();
 
 
 public:
