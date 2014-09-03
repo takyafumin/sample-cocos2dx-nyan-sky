@@ -27,7 +27,28 @@ bool Bullet::init()
 	auto remove = RemoveSelf::create();
 	auto seq = Sequence::create(move, remove, nullptr);
 
+	// 実行
 	this->runAction(seq);
 
+
+	// 当たり判定の半径を設定
+	_radius = this->getContentSize().width * 0.5;
+
 	return true;
+}
+
+
+/**
+ * 弾が壊れる時の処理
+ */
+void Bullet::brokenBullet()
+{
+	this->stopAllActions();
+
+	// 弾を消すアクション
+	Action* action = RemoveSelf::create();
+	runAction(action);
+
+	// 状態を変更
+	_state = State::Broken;
 }

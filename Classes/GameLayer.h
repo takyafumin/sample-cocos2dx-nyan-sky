@@ -71,6 +71,8 @@ protected:
 	// 弾の表示
 	void showBullet();
 
+	// 当たり判定処理
+	void collisionDetection();
 
 public:
 	// CreateScene

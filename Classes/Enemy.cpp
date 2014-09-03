@@ -15,6 +15,9 @@ USING_NS_CC;
 
 Enemy::Enemy(EnemyType enemyType)
 : _enemyType(enemyType)
+, _hp(0)
+, _state(Enemy::State::Moving)
+, _radius(0.0)
 {
 }
 
@@ -44,12 +47,14 @@ bool Enemy::init()
 	switch (_enemyType)
 	{
 	case Type1:
+		_hp = 2;
 		filename = PNG_ENEMY1;
 		initPos = Vec2(winSize.width * 0.1, winSize.height * 1.1);
 		action = getAction1();
 		break;
 
 	case Type2:
+		_hp = 3;
 		filename = PNG_ENEMY1;
 		initPos = Vec2(winSize.width * 0.9, winSize.height * 1.1);
 		action = getAction2();
@@ -63,6 +68,9 @@ bool Enemy::init()
 	// 初期位置とアクションを設定
 	setPosition(initPos);
 	runAction(action);
+
+	// 当たり判定の半径を設定
+	_radius = getContentSize().width * 0.5;
 
 	return true;
 }
@@ -93,4 +101,33 @@ Action* Enemy::getAction2()
 	auto seq = Sequence::create(move, remove, nullptr);
 
 	return seq;
+}
+
+
+/**
+ * 弾がヒットした時の処理
+ */
+void Enemy::hitEnemy()
+{
+	// ヒットポイントを減らす
+	_hp--;
+
+	Action* action;
+
+	if (_hp <= 0)
+	{
+		// アニメーションストップ
+		this->stopAllActions();
+
+		// 爆発
+		action = RemoveSelf::create();
+		_state = State::Dead;
+	}
+	else
+	{
+		// 点滅
+		action = Blink::create(0.2, 2);
+	}
+
+	runAction(action);
 }

@@ -21,16 +21,26 @@ public:
 		Type2 = 2,
 	};
 
+	// 状態
+	enum class State
+	{
+		Moving,
+		Dead,
+	};
+
 protected:
 
 	// タイプ
 	EnemyType _enemyType;
 
+	// HP
+	int _hp;
+
 	// アクション：Type1
 	cocos2d::Action* getAction1();
 
 	// アクション：Type2
-cocos2d::Action* getAction2();
+	cocos2d::Action* getAction2();
 
 public:
 
@@ -42,6 +52,20 @@ public:
 
 	// create関数
 	static Enemy* create(EnemyType enemyType);
+
+
+	//
+	// アクセサ
+	//
+
+	// 敵の状態
+	CC_SYNTHESIZE_READONLY(State, _state, State);
+	// 当たり判定の半径
+	CC_SYNTHESIZE(float, _radius, Radius);
+
+	// 弾がヒットした場合の処理
+	void hitEnemy();
+
 };
 
 #endif /* ENEMY_H_ */

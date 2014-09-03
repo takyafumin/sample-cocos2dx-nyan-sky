@@ -185,10 +185,7 @@ void GameLayer::update(float dt)
 	_time += dt;
 
 	// 敵の表示設定
-	if (_enemyConfigs.size() == 0 )
-		return;
-
-	if (_enemyConfigs[0].appearanceTime <= _time)
+	if (_enemyConfigs.size() != 0 && _enemyConfigs[0].appearanceTime <= _time)
 	{
 		// まだ出現していない敵が存在する
 		showEnemy();
@@ -199,6 +196,10 @@ void GameLayer::update(float dt)
 	{
 		showBullet();
 	}
+
+
+	// 当たり判定
+	collisionDetection();
 }
 
 
@@ -233,4 +234,49 @@ void GameLayer::showBullet()
 
 	// 弾の発射時間を保持
 	_lastBulletTime = _time;
+}
+
+
+void GameLayer::collisionDetection()
+{
+	// ノードリスト取得
+	auto nodes = getChildren();
+	Vector<Node*> enemies;
+	Vector<Node*> bullets;
+
+	for (auto node : nodes)
+	{
+		switch (node->getTag())
+		{
+		case Tag_Bullet: bullets.pushBack(node); break;
+		case Tag_Enemy: enemies.pushBack(node); break;
+		default: break;
+		}
+	}
+
+
+	// 敵の数分ループ
+	for (auto nodeEnemy : enemies)
+	{
+		auto enemy = static_cast<Enemy*>(nodeEnemy);
+		if (enemy->getState() == Enemy::State::Dead)
+			continue;
+
+		// 弾の数分ループ
+		for (auto nodeBullet : bullets)
+		{
+			auto bullet = static_cast<Bullet*>(nodeBullet);
+			if (bullet->getState() == Bullet::State::Broken)
+				continue;
+
+			// 敵と弾の距離を取得
+			float distance = enemy->getPosition().distance(bullet->getPosition());
+
+			if (distance <= enemy->getRadius() + bullet->getRadius())
+			{
+				enemy->hitEnemy();
+				bullet->brokenBullet();
+			}
+		}
+	}
 }
