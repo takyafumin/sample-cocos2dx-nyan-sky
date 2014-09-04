@@ -52,6 +52,10 @@ protected:
 	// 弾を発射した時間
 	float _lastBulletTime;
 
+	// 弾の発射間隔設定
+	std::vector<float> _bulletIntervalConfigs;
+	int _bulletIntervalConfigsIndex;
+
 
 	// 背景初期化処理
 	void initBackground();
@@ -64,6 +68,9 @@ protected:
 
 	// 敵設定の初期化
 	void initEnemyConfigs();
+
+	// 弾発射間隔設定の初期化
+	void initBulletIntervalConfigs();
 
 	// 敵の表示
 	void showEnemy();

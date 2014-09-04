@@ -15,9 +15,6 @@
 // 背景画像
 #define PNG_BACKGROUND "Background.png"
 
-// 弾の発射感覚
-#define BULLET_INTERVAL 0.5f
-
 
 USING_NS_CC;
 
@@ -56,6 +53,9 @@ bool GameLayer::init()
 
 	// 敵設定の初期化
 	initEnemyConfigs();
+
+	// 弾発射間隔の初期化
+	initBulletIntervalConfigs();
 
 	// フレーム処理を設定
 	scheduleUpdate();
@@ -212,9 +212,14 @@ void GameLayer::update(float dt)
 	}
 
 	// 弾の表示
-	if (_lastBulletTime + BULLET_INTERVAL < _time)
+	if (_lastBulletTime + _bulletIntervalConfigs[_bulletIntervalConfigsIndex] < _time)
 	{
 		showBullet();
+
+		// 弾発射間隔設定
+		_bulletIntervalConfigsIndex++;
+		if (_bulletIntervalConfigsIndex == _bulletIntervalConfigs.size())
+			_bulletIntervalConfigsIndex = 0;
 	}
 
 
@@ -299,4 +304,13 @@ void GameLayer::collisionDetection()
 			}
 		}
 	}
+}
+
+
+void GameLayer::initBulletIntervalConfigs()
+{
+	_bulletIntervalConfigs = {0.5, 0.1, 0.1};
+	_bulletIntervalConfigsIndex = 0;
+
+	_lastBulletTime = 0.0;
 }
