@@ -142,7 +142,27 @@ bool GameLayer::onTouchBegan(Touch* touch, Event* event)
 void GameLayer::onTouchMoved(Touch* touch, Event* event)
 {
 	// スワイプした移動距離分、プレイヤーを移動する
-	_player->setPosition(_player->getPosition() + touch->getDelta());
+
+	Size winSize = Director::getInstance()->getWinSize();
+	float destX = _player->getPosition().x + touch->getDelta().x;
+	float destY = _player->getPosition().y + touch->getDelta().y;
+
+	// 画面外に出る座標の場合、補正
+
+	if (destX < 0.0)
+		destX = 0.0;
+
+	if (destX > winSize.width)
+		destX = winSize.width;
+
+	if (destY < 0.0)
+		destY = 0.0;
+
+	if (destY > winSize.height)
+		destY = winSize.height;
+
+	// 移動先ポジションを設定
+		_player->setPosition(destX, destY);
 }
 
 void GameLayer::onTouchEnded(Touch* touch, Event* event)
