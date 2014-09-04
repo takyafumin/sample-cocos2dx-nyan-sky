@@ -179,20 +179,17 @@ void GameLayer::onTouchCancelled(Touch* touch, Event* event)
  */
 void GameLayer::initEnemyConfigs()
 {
-	_enemyConfigs =
-	{
-			{1, 2},
-			{1, 3},
-			{1, 4},
-			{1, 5},
-			{1, 6},
+	std::vector<float> baseTiming = {2.0, 5.0, 8.0, 11.0, 14.0};
 
-			{2, 8},
-			{2, 9},
-			{2, 10},
-			{2, 11},
-			{2, 12},
-	};
+	for (int i = 0; i < baseTiming.size(); i++)
+	{
+		for (int j = 1; j < 6; j++)
+		{
+			float interval = baseTiming[i] + 0.5 * j;
+			EnemyConfig config = {i + 1, interval};
+			_enemyConfigs.push_back(config);
+		}
+	}
 }
 
 

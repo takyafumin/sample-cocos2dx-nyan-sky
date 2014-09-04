@@ -19,6 +19,9 @@ public:
 	{
 		Type1 = 1,
 		Type2 = 2,
+		Type3 = 3,
+		Type4 = 4,
+		Type5 = 5,
 	};
 
 	// 状態
@@ -36,11 +39,15 @@ protected:
 	// HP
 	int _hp;
 
-	// アクション：Type1
-	cocos2d::Action* getAction1();
+	// TODO
+//	// アクション：Type1
+//	cocos2d::Action* getAction1();
+//
+//	// アクション：Type2
+//	cocos2d::Action* getAction2();
 
-	// アクション：Type2
-	cocos2d::Action* getAction2();
+	// アクション：標準（まっすぐ）
+	cocos2d::Action* getActionNormal(float destX);
 
 public:
 
