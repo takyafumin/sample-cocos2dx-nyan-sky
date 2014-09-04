@@ -136,6 +136,9 @@ void GameLayer::initTouchEvent()
 
 bool GameLayer::onTouchBegan(Touch* touch, Event* event)
 {
+	if (_player->getState() == Player::State::Dead)
+		return false;
+
 	return true;
 }
 
@@ -198,6 +201,9 @@ void GameLayer::initEnemyConfigs()
  */
 void GameLayer::update(float dt)
 {
+	if (_player->getState() == Player::State::Dead)
+		return;
+
 	// トータル時間を加算
 	_time += dt;
 
@@ -259,6 +265,9 @@ void GameLayer::showBullet()
 }
 
 
+/**
+ * 当たり判定処理
+ */
 void GameLayer::collisionDetection()
 {
 	// ノードリスト取得
@@ -277,6 +286,10 @@ void GameLayer::collisionDetection()
 	}
 
 
+	// --------------------------------
+	// 敵の当たり判定
+	// --------------------------------
+
 	// 敵の数分ループ
 	for (auto nodeEnemy : enemies)
 	{
@@ -293,17 +306,35 @@ void GameLayer::collisionDetection()
 
 			// 敵と弾の距離を取得
 			float distance = enemy->getPosition().distance(bullet->getPosition());
-
 			if (distance <= enemy->getRadius() + bullet->getRadius())
 			{
 				enemy->hitEnemy();
 				bullet->brokenBullet();
 			}
 		}
+
+		// プレイヤー当たり判定
+		// - 敵と接触後、一定時間は判定しない（無敵）
+		if (_player->getState() == Player::State::Normal)
+		{
+			float distance = enemy->getPosition().distance(_player->getPosition());
+			if (distance <= enemy->getRadius() + _player->getRadius())
+			{
+				if (!_player->hitPlayer())
+				{
+					CCLog("End!!!");
+				}
+			}
+		}
 	}
+
+
 }
 
 
+/**
+ * 弾発射間隔設定初期化処理
+ */
 void GameLayer::initBulletIntervalConfigs()
 {
 	_bulletIntervalConfigs = {0.5, 0.1, 0.1};

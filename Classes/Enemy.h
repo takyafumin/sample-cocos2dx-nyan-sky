@@ -39,13 +39,6 @@ protected:
 	// HP
 	int _hp;
 
-	// TODO
-//	// アクション：Type1
-//	cocos2d::Action* getAction1();
-//
-//	// アクション：Type2
-//	cocos2d::Action* getAction2();
-
 	// アクション：標準（まっすぐ）
 	cocos2d::Action* getActionNormal(float destX);
 

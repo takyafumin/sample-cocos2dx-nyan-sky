@@ -80,7 +80,7 @@ bool Enemy::init()
 		initPos = Vec2(winSize.width * 0.9, winSize.height * 1.1);
 		action = getActionNormal(0.9);
 		break;
-}
+	}
 
 	if (!Sprite::initWithFile(filename))
 		return false;
@@ -96,33 +96,6 @@ bool Enemy::init()
 	return true;
 }
 
-
-//Action* Enemy::getAction1()
-//{
-//	// 画面サイズ取得
-//	auto winSize = Director::getInstance()->getWinSize();
-//
-//	// 移動アクション生成
-//	auto move = MoveTo::create(5, Vec2(winSize.width * 0.1, winSize.height * -0.1));
-//	auto remove = RemoveSelf::create();
-//	auto seq = Sequence::create(move, remove, nullptr);
-//
-//	return seq;
-//}
-//
-//
-//Action* Enemy::getAction2()
-//{
-//	// 画面サイズ取得
-//	auto winSize = Director::getInstance()->getWinSize();
-//
-//	// 移動アクション生成
-//	auto move = MoveTo::create(5, Vec2(winSize.width * 0.9, winSize.height * -0.1));
-//	auto remove = RemoveSelf::create();
-//	auto seq = Sequence::create(move, remove, nullptr);
-//
-//	return seq;
-//}
 
 /**
  * アクション取得
