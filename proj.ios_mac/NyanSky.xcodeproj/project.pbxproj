@@ -72,6 +72,8 @@
 		F1F7FEEA19B6E25900112417 /* Enemy2.png in Resources */ = {isa = PBXBuildFile; fileRef = F1F7FEE319B6E25900112417 /* Enemy2.png */; };
 		F1F7FEEB19B6E25900112417 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = F1F7FEE419B6E25900112417 /* fonts */; };
 		F1F7FEEC19B6E25900112417 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = F1F7FEE519B6E25900112417 /* Player.png */; };
+		F1F7FEF019B84CCD00112417 /* Explosion1.png in Resources */ = {isa = PBXBuildFile; fileRef = F1F7FEEE19B84CCD00112417 /* Explosion1.png */; };
+		F1F7FEF119B84CCD00112417 /* Explosion2.png in Resources */ = {isa = PBXBuildFile; fileRef = F1F7FEEF19B84CCD00112417 /* Explosion2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -280,6 +282,8 @@
 		F1F7FEE319B6E25900112417 /* Enemy2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy2.png; sourceTree = "<group>"; };
 		F1F7FEE419B6E25900112417 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		F1F7FEE519B6E25900112417 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Player.png; sourceTree = "<group>"; };
+		F1F7FEEE19B84CCD00112417 /* Explosion1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Explosion1.png; sourceTree = "<group>"; };
+		F1F7FEEF19B84CCD00112417 /* Explosion2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Explosion2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +478,8 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F1F7FEEE19B84CCD00112417 /* Explosion1.png */,
+				F1F7FEEF19B84CCD00112417 /* Explosion2.png */,
 				F1F7FEDF19B6E25900112417 /* Background.png */,
 				F1F7FEE019B6E25900112417 /* Bullet.png */,
 				F1F7FEE119B6E25900112417 /* Cat.png */,
@@ -653,6 +659,7 @@
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				F1F7FEE719B6E25900112417 /* Bullet.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
+				F1F7FEF019B84CCD00112417 /* Explosion1.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				F1F7FEE919B6E25900112417 /* Enemy1.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
@@ -663,6 +670,7 @@
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				F1F7FEEB19B6E25900112417 /* fonts in Resources */,
+				F1F7FEF119B84CCD00112417 /* Explosion2.png in Resources */,
 				F1F7FEE619B6E25900112417 /* Background.png in Resources */,
 				F1F7FEEA19B6E25900112417 /* Enemy2.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
